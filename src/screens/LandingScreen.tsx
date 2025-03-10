@@ -11,7 +11,7 @@ const LandingScreen = () => {
   return (
     <div
       className={
-        'landing-screen flex flex-col w-full h-full items-center justify-start m-auto pt-[var(--navbar-height)] px-6 ' +
+        'landing-screen flex flex-col w-full h-full items-center justify-start m-auto pt-[var(--navbar-height)] px-6 overflow-y-auto ' +
         gradientBg
       }
       style={{ justifyContent: ethereum.currentAccount ? 'start' : 'center' }}

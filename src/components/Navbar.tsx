@@ -12,6 +12,7 @@ import {
 import { useContext } from 'react';
 import { EthereumContext } from '@/context/EthereumContext';
 import { Dot, LoaderCircle, Wallet } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 
 export const actionBtnStyle = cn(
   buttonVariants({
@@ -139,13 +140,18 @@ const Navbar = () => {
                   Connect Wallet
                 </Button>
               ) : (
-                <div className='flex items-center gap-2 bg-accent rounded-sm px-2 py-1'>
-                  <Dot size={48} className='m-[-16px] animate-pulse text-green-400' />
-                  <TypographyP className='!text-[16px]'>
-                    {ethereum.currentAccount?.slice(0, 6)}...
-                    {ethereum.currentAccount?.slice(ethereum.currentAccount.length - 4)}
-                  </TypographyP>
-                </div>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <div className='flex items-center gap-2 bg-accent rounded-sm px-2 py-1 cursor-pointer'>
+                      <Dot size={48} className='m-[-16px] animate-pulse text-green-400' />
+                      <TypographyP className='!text-[16px]'>
+                        {ethereum.currentAccount?.slice(0, 6)}...
+                        {ethereum.currentAccount?.slice(ethereum.currentAccount.length - 4)}
+                      </TypographyP>
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent>{ethereum.currentAccount}</TooltipContent>
+                </Tooltip>
               )}
             </NavigationMenuItem>
           </NavigationMenuList>

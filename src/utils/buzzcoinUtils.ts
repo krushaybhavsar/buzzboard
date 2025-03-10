@@ -1,12 +1,21 @@
 import { Web3 } from 'web3';
-import { validAddresses } from './constants';
+import { rpcURL, validAddresses } from './constants';
 import { toast } from 'sonner';
 
-const rpcURL = window.location.href.includes('localhost')
-  ? 'http://127.0.0.1:8545/rpc'
+const updatedRpcURL = window.location.href.includes('localhost')
+  ? rpcURL
   : 'https://buzzboard.netlify.app/rpc';
 
-const web3 = new Web3(rpcURL);
+let web3: Web3;
+
+try {
+  web3 = new Web3(updatedRpcURL);
+} catch (error) {
+  console.error('Error creating Web3 instance:', error);
+  toast('Error creating Web3 instance', {
+    description: 'Try disabling your ad blocker or using Chrome with default security settings',
+  });
+}
 
 export type WalletBalance = {
   address: string;
@@ -39,4 +48,21 @@ export const getBalance = async (address: string): Promise<number> => {
 
 export const isValidAddress = (address: string): boolean => {
   return validAddresses.includes(address);
+};
+
+export const formatBalance = (balance: number, full?: boolean): string => {
+  if (full) {
+    // only insert commas for thousands
+    return (
+      balance.toLocaleString(undefined, {
+        maximumFractionDigits: 18,
+        minimumFractionDigits: 3,
+      }) + ' Buzz'
+    );
+  }
+  // truncate to 3 decimal places and insert commas for thousands
+  return (
+    balance.toLocaleString(undefined, { maximumFractionDigits: 3, minimumFractionDigits: 3 }) +
+    ' Buzz'
+  );
 };
