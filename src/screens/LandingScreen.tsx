@@ -1,4 +1,5 @@
-import { Button } from '@/components/ui/button';
+import DisconnectedWalletView from '@/components/DisconnectedWalletView';
+import LeaderboardView from '@/components/LeaderboardView';
 import { EthereumContext } from '@/context/EthereumContext';
 import { useContext } from 'react';
 
@@ -10,15 +11,12 @@ const LandingScreen = () => {
   return (
     <div
       className={
-        'landing-screen flex flex-col w-full h-full items-center justify-start m-auto pt-[var(--navbar-height)] ' +
+        'landing-screen flex flex-col w-full h-full items-center justify-start m-auto pt-[var(--navbar-height)] px-6 ' +
         gradientBg
       }
+      style={{ justifyContent: ethereum.currentAccount ? 'start' : 'center' }}
     >
-      {ethereum.currentAccount ? (
-        <div>{ethereum.currentAccount}</div>
-      ) : (
-        <Button onClick={ethereum.connectWallet}>Connect Wallet</Button>
-      )}
+      {ethereum.currentAccount ? <LeaderboardView /> : <DisconnectedWalletView />}
     </div>
   );
 };

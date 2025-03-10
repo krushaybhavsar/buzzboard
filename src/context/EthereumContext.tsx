@@ -1,4 +1,6 @@
+import { isValidAddress } from '@/utils/buzzcoinUtils';
 import { createContext, useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 export const EthereumContext = createContext({
   isLoading: false,
@@ -20,20 +22,35 @@ export const EthereumProvider = (props: EthereumProviderProps) => {
     if (window && window.ethereum) {
       setMetamaskInstalled(true);
       if (window.ethereum.selectedAddress) {
-        setCurrentAccount(window.ethereum.selectedAddress);
+        if (isValidAddress(window.ethereum.selectedAddress)) {
+          setCurrentAccount(window.ethereum.selectedAddress);
+        } else {
+          toast('Address not allowed!', {
+            description: 'Please connect with the Ethereum address given to you.',
+          });
+        }
       }
     }
     setLoading(false);
   }, []);
 
   const connectWallet = async () => {
-    if (!metamaskInstalled) return alert('Please install MetaMask to continue.');
+    if (!metamaskInstalled)
+      return toast('Metamask not installed!', {
+        description: 'Please install Metamask to continue.',
+      });
     setLoading(true);
     try {
       const accounts = await window.ethereum.request({
         method: 'eth_requestAccounts',
       });
-      setCurrentAccount(accounts[0]);
+      if (isValidAddress(accounts[0])) {
+        setCurrentAccount(accounts[0]);
+      } else {
+        toast('Address not allowed!', {
+          description: 'Please connect with the Ethereum address given to you.',
+        });
+      }
     } catch (error) {
       console.error(error);
     } finally {

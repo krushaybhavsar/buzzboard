@@ -11,7 +11,7 @@ import {
 } from './ui/navigation-menu';
 import { useContext } from 'react';
 import { EthereumContext } from '@/context/EthereumContext';
-import { Dot } from 'lucide-react';
+import { Dot, LoaderCircle, Wallet } from 'lucide-react';
 
 export const actionBtnStyle = cn(
   buttonVariants({
@@ -128,11 +128,14 @@ const Navbar = () => {
               {extractLinks().map((link, index) => getNavbarLinkElement(link, index))}
               {!ethereum.currentAccount ? (
                 <Button
-                  className={actionBtnStyle}
-                  onClick={() => {
-                    ethereum.connectWallet();
-                  }}
+                  className='flex items-center justify-center gap-2'
+                  onClick={ethereum.connectWallet}
                 >
+                  {ethereum.isLoading ? (
+                    <LoaderCircle className='animate-spin duration-600' />
+                  ) : (
+                    <Wallet />
+                  )}
                   Connect Wallet
                 </Button>
               ) : (
