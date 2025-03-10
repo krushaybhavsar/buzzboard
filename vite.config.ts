@@ -17,7 +17,7 @@ export default defineConfig({
         target: 'http://143.215.130.235:8545', // Your insecure RPC server
         changeOrigin: true,
         secure: false, // Ignore self-signed SSL issues (if HTTPS is added later)
-        // ws: true, // Enable WebSocket proxying if needed
+        ws: true, // Enable WebSocket proxying if needed
         rewrite: (path) => path.replace(/^\/rpc/, ''),
       },
     },
