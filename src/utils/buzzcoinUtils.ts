@@ -62,12 +62,12 @@ export const formatBalance = (balance: number, full?: boolean): string => {
   let decimal = balanceString.split('.')[1];
 
   if (!decimal) {
-    decimal = '000';
+    decimal = '0000';
   }
 
   if (!full) {
-    // truncate to 3 decimal points
-    decimal = decimal.slice(0, 3);
+    // truncate to 4 decimal points
+    decimal = decimal.slice(0, 4);
   }
 
   // add commas for thousands separator using regex.
