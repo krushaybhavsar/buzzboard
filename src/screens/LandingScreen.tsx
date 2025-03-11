@@ -2,8 +2,10 @@ import BankBalanceView from '@/components/LandingScreen/BankBalanceView';
 import DisconnectedWalletView from '@/components/LandingScreen/DisconnectedWalletView';
 import LeaderboardView from '@/components/LandingScreen/LeaderboardView';
 import YourBalanceView from '@/components/LandingScreen/YourBalanceView';
+import { Button } from '@/components/ui/button';
 import { TypographyH1 } from '@/components/ui/typography';
 import { EthereumContext } from '@/context/EthereumContext';
+import { Github } from 'lucide-react';
 import { useContext } from 'react';
 
 const LandingScreen = () => {
@@ -33,6 +35,12 @@ const LandingScreen = () => {
       ) : (
         <DisconnectedWalletView />
       )}
+      <Button
+        className='absolute rounded-full bottom-5 right-5 h-fit !w-fit !p-2'
+        onClick={() => window.open('https://github.com/krushaybhavsar/buzzboard', '_blank')}
+      >
+        <Github />
+      </Button>
     </div>
   );
 };
