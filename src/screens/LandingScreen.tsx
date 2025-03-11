@@ -1,5 +1,7 @@
-import DisconnectedWalletView from '@/components/DisconnectedWalletView';
-import LeaderboardView from '@/components/LeaderboardView';
+import BankBalanceView from '@/components/LandingScreen/BankBalanceView';
+import DisconnectedWalletView from '@/components/LandingScreen/DisconnectedWalletView';
+import LeaderboardView from '@/components/LandingScreen/LeaderboardView';
+import YourBalanceView from '@/components/LandingScreen/YourBalanceView';
 import { TypographyH1 } from '@/components/ui/typography';
 import { EthereumContext } from '@/context/EthereumContext';
 import { useContext } from 'react';
@@ -20,7 +22,13 @@ const LandingScreen = () => {
       {ethereum.currentAccount ? (
         <div className='flex flex-col gap-8 w-full'>
           <TypographyH1 className='text-center'>Leaderboard</TypographyH1>
-          <LeaderboardView />
+          <div className='flex flex-row gap-8 w-full justify-center'>
+            <div className='flex flex-col gap-8'>
+              <YourBalanceView />
+              <BankBalanceView />
+            </div>
+            <LeaderboardView />
+          </div>
         </div>
       ) : (
         <DisconnectedWalletView />

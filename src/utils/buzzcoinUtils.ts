@@ -57,16 +57,22 @@ export const isValidAddress = (address: string): boolean => {
 };
 
 export const formatBalance = (balance: number, full?: boolean): string => {
-  if (full) {
-    return (
-      balance.toLocaleString(undefined, {
-        maximumFractionDigits: 18,
-        minimumFractionDigits: 3,
-      }) + ' Buzz'
-    );
+  let balanceString = balance.toString();
+  let whole = balanceString.split('.')[0];
+  let decimal = balanceString.split('.')[1];
+
+  if (!decimal) {
+    decimal = '000';
   }
-  return (
-    balance.toLocaleString(undefined, { maximumFractionDigits: 3, minimumFractionDigits: 3 }) +
-    ' Buzz'
-  );
+
+  if (!full) {
+    // truncate to 3 decimal points
+    decimal = decimal.slice(0, 3);
+  }
+
+  // add commas for thousands separator using regex.
+  whole = whole.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  const formattedAmount = whole + '.' + decimal;
+
+  return formattedAmount + ' Buzz';
 };

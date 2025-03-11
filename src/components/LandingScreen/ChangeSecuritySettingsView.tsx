@@ -1,4 +1,4 @@
-import { TypographyP } from './ui/typography';
+import { TypographyP } from '../ui/typography';
 import SecuritySettingsImage from '@/assets/securitySettings.png';
 
 const ChangeSecuritySettingsView = () => {

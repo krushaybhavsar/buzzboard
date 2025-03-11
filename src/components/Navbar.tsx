@@ -11,7 +11,7 @@ import {
 } from './ui/navigation-menu';
 import { useContext } from 'react';
 import { EthereumContext } from '@/context/EthereumContext';
-import { Dot, LoaderCircle, Wallet } from 'lucide-react';
+import { Copy, Dot, LoaderCircle, Wallet } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 import { toast } from 'sonner';
 import BuzzboardLogo from '@/assets/logos/buzzboard-logo.png';
@@ -150,7 +150,7 @@ const Navbar = () => {
                 <Tooltip>
                   <TooltipTrigger>
                     <div
-                      className='flex items-center gap-2 bg-accent rounded-sm px-2 py-1 cursor-pointer'
+                      className='flex items-center gap-2 bg-card shadow-sm rounded-sm px-2 py-1 cursor-pointer'
                       onClick={copyAddressToClipboard}
                     >
                       <Dot size={48} className='m-[-16px] animate-pulse text-green-400' />
@@ -160,7 +160,16 @@ const Navbar = () => {
                       </TypographyP>
                     </div>
                   </TooltipTrigger>
-                  <TooltipContent>{ethereum.currentAccount}</TooltipContent>
+                  <TooltipContent>
+                    <div className='flex flex-col text-center gap-2 text-[14px]'>
+                      {ethereum.currentAccount}
+
+                      <div className='flex flex-row gap-1 justify-center items-center text-[12px]'>
+                        <Copy size={12} className='mb-[-2px]' />
+                        {'Click to copy'}
+                      </div>
+                    </div>
+                  </TooltipContent>
                 </Tooltip>
               )}
             </NavigationMenuItem>

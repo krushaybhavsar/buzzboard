@@ -1,6 +1,6 @@
 import { LoaderCircle, Wallet } from 'lucide-react';
-import { Button } from './ui/button';
-import { TypographyH2, TypographyP } from './ui/typography';
+import { Button } from '../ui/button';
+import { TypographyH2, TypographyP } from '../ui/typography';
 import { useContext } from 'react';
 import { EthereumContext } from '@/context/EthereumContext';
 
