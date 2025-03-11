@@ -7,6 +7,7 @@ import { TypographyP } from './ui/typography';
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 import './LeaderboardView.css';
 import { cn } from '@/lib/utils';
+import ChangeSecuritySettingsView from './ChangeSecuritySettingsView';
 
 const LeaderboardView = () => {
   const [leaderboard, setLeaderboard] = useState<WalletBalance[]>([]);
@@ -31,6 +32,8 @@ const LeaderboardView = () => {
             <TypographyP className='!text-[16px]'>This may take a few seconds.</TypographyP>
           </div>
         </div>
+      ) : leaderboard.length === 0 ? (
+        <ChangeSecuritySettingsView />
       ) : (
         <div className='max-w-[750px] w-full !rounded-sm'>
           <Table className='bg-card !rounded-sm'>
