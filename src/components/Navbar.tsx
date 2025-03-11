@@ -14,6 +14,7 @@ import { EthereumContext } from '@/context/EthereumContext';
 import { Dot, LoaderCircle, Wallet } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 import { toast } from 'sonner';
+import BuzzboardLogo from '@/assets/logos/buzzboard-logo.png';
 
 export const actionBtnStyle = cn(
   buttonVariants({
@@ -120,14 +121,12 @@ const Navbar = () => {
       }}
     >
       <div className='web-menu flex h-full items-center justify-between w-full px-[24px] max-w-[1408px]'>
-        <div className='flex items-center gap-1 flex-1' onClick={() => navigate('/')}>
-          {/* <LogoIcon
-            className={
-              'h-[36px] w-[36px] hover:cursor-pointer transition-all ease-in-out duration-300' +
-              (theme === 'dark' && ' invert')
-            }
-          /> */}
-          <TypographyH1 className='text-[22px] hover:cursor-pointer transition-all ease-in-out duration-300 font-semibold'>
+        <div
+          className='flex items-center gap-3 flex-1 hover:cursor-pointer'
+          onClick={() => navigate('/')}
+        >
+          <img className={'h-[22px] w-[22px] mb-1'} src={BuzzboardLogo} />
+          <TypographyH1 className='text-[22px] transition-all ease-in-out duration-300 font-semibold'>
             buzzboard
           </TypographyH1>
         </div>
