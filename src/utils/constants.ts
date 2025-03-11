@@ -1,6 +1,7 @@
 export const rpcURL = 'http://143.215.130.235:8545';
+export const bankAddress = '0x2ff7a7ef4154a24286969a381e7d2131b7154129';
 export const validAddresses = [
-  '0x2ff7a7ef4154a24286969a381e7d2131b7154129',
+  '0x2ff7a7ef4154a24286969a381e7d2131b7154129', // Bank
   '0x4aabf5e0b72c3a4114e3764b334e798c2b8578bf',
   '0x575fffccbce7918a78e719161f4e6aa7b77dbb97',
   '0x8b366b50df94ae3587f4b3e53b23d6f0bb045a6a',

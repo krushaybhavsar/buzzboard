@@ -1,0 +1,47 @@
+@property --a {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.frame {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.frame::before {
+  position: absolute;
+  z-index: 1;
+  inset: -0.5em;
+  border: solid 0.5em;
+  border-image: conic-gradient(
+      from var(--a),
+      #690,
+      #9c3,
+      #ce6,
+      #069,
+      #39c,
+      #906,
+      #c39,
+      #f60,
+      #f90,
+      #fc0,
+      #690
+    )
+    1;
+  filter: blur(0.4em);
+  animation: a 6s linear infinite;
+  content: '';
+}
+
+/* animate --a from its initial-value 0deg to 1turn */
+@keyframes a {
+  to {
+    --a: 1turn;
+  }
+}

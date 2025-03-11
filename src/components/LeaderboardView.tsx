@@ -5,6 +5,8 @@ import { EthereumContext } from '@/context/EthereumContext';
 import { LoaderCircle } from 'lucide-react';
 import { TypographyP } from './ui/typography';
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
+import './LeaderboardView.css';
+import { cn } from '@/lib/utils';
 
 const LeaderboardView = () => {
   const [leaderboard, setLeaderboard] = useState<WalletBalance[]>([]);
@@ -32,30 +34,42 @@ const LeaderboardView = () => {
       ) : (
         <div className='max-w-[750px] w-full !rounded-sm'>
           <Table className='bg-card !rounded-sm'>
-            {/* <TableHeader className='!rounded-sm'>
-              <TableRow>
-                <TableHead>Address</TableHead>
-                <TableHead>Amount</TableHead>
-              </TableRow>
-            </TableHeader> */}
             <TableBody>
               {leaderboard.map((lbRow, index) => (
-                <TableRow key={lbRow.address} className=''>
-                  <TableCell className='!p-4'>
-                    <div className='bg-border/50 text-center rounded-full w-8 h-8 flex justify-center items-center'>
-                      <TypographyP className='!font-recoleta !font-[400] !text-[16px] !leading-none text-center'>
+                <TableRow
+                  key={lbRow.address}
+                  className={cn(
+                    'relative',
+                    ethereum.currentAccount === lbRow.address && 'bg-border/40 hover:bg-border/60',
+                  )}
+                >
+                  <TableCell className={'!p-4'}>
+                    <div
+                      className={cn(
+                        'bg-border/50 text-center rounded-full w-8 h-8 flex justify-center items-center',
+                        ethereum.currentAccount === lbRow.address && 'bg-primary',
+                      )}
+                    >
+                      <TypographyP
+                        className={cn(
+                          '!font-recoleta !font-[400] !text-[16px] !leading-none text-center',
+                          ethereum.currentAccount === lbRow.address && 'text-primary-foreground',
+                        )}
+                      >
                         {index + 1}
                       </TypographyP>
                     </div>
                   </TableCell>
                   <TableCell className='!p-4'>{lbRow.address}</TableCell>
                   <TableCell className='!p-4'>
-                    <div className='flex justify-center items-center !px-3 !py-2 w-fit cursor-pointer hover:bg-border/60 rounded-sm'>
-                      <Tooltip>
-                        <TooltipTrigger>{formatBalance(lbRow.balance)}</TooltipTrigger>
-                        <TooltipContent>{formatBalance(lbRow.balance, true)}</TooltipContent>
-                      </Tooltip>
-                    </div>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <div className='flex justify-center items-center !px-3 !py-2 w-fit cursor-pointer hover:bg-border/60 rounded-sm'>
+                          {formatBalance(lbRow.balance)}
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent>{formatBalance(lbRow.balance, true)}</TooltipContent>
+                    </Tooltip>
                   </TableCell>
                 </TableRow>
               ))}

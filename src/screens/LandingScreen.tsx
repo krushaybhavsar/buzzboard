@@ -1,5 +1,6 @@
 import DisconnectedWalletView from '@/components/DisconnectedWalletView';
 import LeaderboardView from '@/components/LeaderboardView';
+import { TypographyH1 } from '@/components/ui/typography';
 import { EthereumContext } from '@/context/EthereumContext';
 import { useContext } from 'react';
 
@@ -16,7 +17,14 @@ const LandingScreen = () => {
       }
       style={{ justifyContent: ethereum.currentAccount ? 'start' : 'center' }}
     >
-      {ethereum.currentAccount ? <LeaderboardView /> : <DisconnectedWalletView />}
+      {ethereum.currentAccount ? (
+        <div className='flex flex-col gap-8 w-full'>
+          <TypographyH1 className='text-center'>Leaderboard</TypographyH1>
+          <LeaderboardView />
+        </div>
+      ) : (
+        <DisconnectedWalletView />
+      )}
     </div>
   );
 };

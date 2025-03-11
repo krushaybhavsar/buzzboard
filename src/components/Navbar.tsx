@@ -13,6 +13,7 @@ import { useContext } from 'react';
 import { EthereumContext } from '@/context/EthereumContext';
 import { Dot, LoaderCircle, Wallet } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
+import { toast } from 'sonner';
 
 export const actionBtnStyle = cn(
   buttonVariants({
@@ -102,6 +103,13 @@ const Navbar = () => {
     return links;
   };
 
+  const copyAddressToClipboard = () => {
+    navigator.clipboard.writeText(
+      ethereum.currentAccount ? ethereum.currentAccount : 'No address found',
+    );
+    toast('Address copied to clipboard!');
+  };
+
   return (
     <div
       className={
@@ -142,7 +150,10 @@ const Navbar = () => {
               ) : (
                 <Tooltip>
                   <TooltipTrigger>
-                    <div className='flex items-center gap-2 bg-accent rounded-sm px-2 py-1 cursor-pointer'>
+                    <div
+                      className='flex items-center gap-2 bg-accent rounded-sm px-2 py-1 cursor-pointer'
+                      onClick={copyAddressToClipboard}
+                    >
                       <Dot size={48} className='m-[-16px] animate-pulse text-green-400' />
                       <TypographyP className='!text-[16px]'>
                         {ethereum.currentAccount?.slice(0, 6)}...

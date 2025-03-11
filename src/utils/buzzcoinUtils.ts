@@ -1,5 +1,5 @@
 import { Web3 } from 'web3';
-import { rpcURL, validAddresses } from './constants';
+import { bankAddress, rpcURL, validAddresses } from './constants';
 import { toast } from 'sonner';
 
 const updatedRpcURL = window.location.href.includes('localhost')
@@ -22,10 +22,16 @@ export type WalletBalance = {
   balance: number;
 };
 
-export const getAllBalances = async (sorted?: boolean): Promise<WalletBalance[]> => {
+export const getAllBalances = async (
+  sorted?: boolean,
+  includeBank?: boolean,
+): Promise<WalletBalance[]> => {
   try {
     const balances: WalletBalance[] = [];
     for (let i = 0; i < validAddresses.length; i++) {
+      if (!includeBank && validAddresses[i] === bankAddress) {
+        continue;
+      }
       const balance = web3.utils.fromWei(await web3.eth.getBalance(validAddresses[i]), 'ether');
       balances.push({ address: validAddresses[i], balance: Number(balance) });
     }
@@ -52,7 +58,6 @@ export const isValidAddress = (address: string): boolean => {
 
 export const formatBalance = (balance: number, full?: boolean): string => {
   if (full) {
-    // only insert commas for thousands
     return (
       balance.toLocaleString(undefined, {
         maximumFractionDigits: 18,
@@ -60,7 +65,6 @@ export const formatBalance = (balance: number, full?: boolean): string => {
       }) + ' Buzz'
     );
   }
-  // truncate to 3 decimal places and insert commas for thousands
   return (
     balance.toLocaleString(undefined, { maximumFractionDigits: 3, minimumFractionDigits: 3 }) +
     ' Buzz'
